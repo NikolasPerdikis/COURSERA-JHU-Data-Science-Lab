@@ -40,5 +40,26 @@ head(dfGDP)
 dfGDP <- dfGDP[dfGDP$Ranking>=1,]
 dfGDP190 <- dfGDP[-c(191:193),]
 mergeddf <- merge(dfEDU,dfGDP190,by="CountryCode")
+mergeddf$Ranking <- as.numeric(as.character(mergeddf$Ranking))
+arrange(mergeddf,desc(Ranking))
 
-  
+ nrow(z)
+[1] 189
+   CountryCode                                    Long.Name        Income.Group                    Region
+1          TUV                                       Tuvalu Lower middle income       East Asia & Pacific
+2          KIR                         Republic of Kiribati Lower middle income       East Asia & Pacific
+3          MHL             Republic of the Marshall Islands Lower middle income       East Asia & Pacific
+4          PLW                            Republic of Palau Upper middle income       East Asia & Pacific
+5          STP Democratic Republic of Săo Tomé and Principe Lower middle income        Sub-Saharan Africa
+6          FSM               Federated States of Micronesia Lower middle income       East Asia & Pacific
+7          TON                             Kingdom of Tonga Lower middle income       East Asia & Pacific
+8          DMA                     Commonwealth of Dominica Upper middle income Latin America & Caribbean
+9          COM                         Union of the Comoros          Low income        Sub-Saharan Africa
+10         WSM                                        Samoa Lower middle income       East Asia & Pacific
+11         VCT               St. Vincent and the Grenadines Upper middle income Latin America & Caribbean
+12         GRD                                      Grenada Upper middle income Latin America & Caribbean
+13         KNA                          St. Kitts and Nevis Upper middle income Latin America & Caribbean
+
+res <- mergeddf  %>% filter(Income.Group == "High income: OECD") %>% select (Ranking)
+ave(res$Ranking)
+
