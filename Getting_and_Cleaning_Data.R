@@ -68,7 +68,13 @@ github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
 gtoken <- config(token = github_token)
 req <- with_config(gtoken, GET("https://api.github.com/users/jtleek/repos"))
 stop_for_status(req)
-content(req)
+res <- content(req)
+ lapply(res,function(ch) grep("datasharing",ch))
+ res[[16]]$url
+[1] "https://api.github.com/repos/jtleek/datasharing"
+> res[[16]]$created_at
+[1] "2013-11-07T13:25:07Z"
+> 
  
 #END WEEK2
 
