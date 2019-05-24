@@ -4,6 +4,31 @@ fileURLXML <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Frestaurant
 download.file(fileURLXML,"ih8.xml")
 res <- xmlParse("ih8.xml")
 length(xpathApply(res, "//zipcode[text()='21231']", xmlValue))
+
+
+breakfast <- xmlTreeParse("breakfast.xml",useInternalNodes = TRUE
+broot <- xmlRoot(breakfast)                        
+names(broot)
+  food   food   food   food   food 
+"food" "food" "food" "food" "food" 
+broot[[1]]
+<food>
+  <name>Belgian Waffles</name>
+  <price>$5.95</price>
+  <description>
+   Two of our famous Belgian Waffles with plenty of real maple syrup
+   </description>
+  <calories>650</calories>
+</food> 
+> names(broot[[1]])
+         name         price   description      calories 
+       "name"       "price" "description"    "calories" 
+y <- xpathApply(broot,"//food/name")
+[> sapply(y,xmlValue)
+[1] "Belgian Waffles"             "Strawberry Belgian Waffles"  "Berry-Berry Belgian Waffles"
+[4] "French Toast"                "Homestyle Breakfast"
+
+
 #END WEEK2
 
 students2
