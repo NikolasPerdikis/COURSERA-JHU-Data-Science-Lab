@@ -28,7 +28,24 @@ y <- xpathApply(broot,"//food/name")
 [1] "Belgian Waffles"             "Strawberry Belgian Waffles"  "Berry-Berry Belgian Waffles"
 [4] "French Toast"                "Homestyle Breakfast"
 
+ q4 <-xmlTreeParse("w1q4.xml",useInternalNodes=TRUE)
+ q4root <- xmlRoot(q4)
+ names(q4root)
+ names(q4root[[1]][[1]])
+             name           zipcode      neighborhood   councildistrict    policedistrict        location_1 
+           "name"         "zipcode"    "neighborhood" "councildistrict"  "policedistrict"      "location_1" 
+y <- xpathApply(q4root,"//row/row/zipcode")
+res <- sapply(y,xmlValue)
+table(unlist(res))
 
+-21226  21201  21202  21205  21206  21207  21208  21209  21210  21211  21212  21213  21214  21215  21216 
+     1    136    201     27     30      4      1      8     23     41     28     31     17     54     10 
+ 21217  21218  21220  21222  21223  21224  21225  21226  21227  21229  21230  21231  21234  21237  21239 
+    32     69      1      7     56    199     19     18      4     13    156    127      7      1      3 
+ 21251  21287 
+     2      1  
+ 
+ 
 #END WEEK2
 
 students2
