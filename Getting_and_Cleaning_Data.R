@@ -29,7 +29,11 @@ separate(data=res, col=sex_class,into = c("sex","class"))
 7      B female     1     4
 8      C female     1     4
 ...
-
+OR
+students2 %>%
+  gather(sex_class ,count , -grade ) %>%
+  separate( col=sex_class,into= c("sex", "class")) %>%
+  print
 
 # arrange() the result by size_mb, in descending order.
 # If you want your results printed to the console, add
@@ -42,6 +46,76 @@ cran %>%
   arrange(desc(size_mb))
   
 # Your call to arrange() goes here
+
+students3
+    name    test class1 class2 class3 class4 class5
+1  Sally midterm      A   <NA>      B   <NA>   <NA>
+2  Sally   final      C   <NA>      C   <NA>   <NA>
+3   Jeff midterm   <NA>      D   <NA>      A   <NA>
+4   Jeff   final   <NA>      E   <NA>      C   <NA>
+5  Roger midterm   <NA>      C   <NA>   <NA>      B
+6  Roger   final   <NA>      A   <NA>   <NA>      A
+
+students3 %>%
+  gather(class, grade, class1:class5, na.rm = TRUE) %>%
+  spread( test, grade ) %>%
+  print
+  name  class final midterm
+1  Brian class1     B       B
+2  Brian class5     C       A
+3   Jeff class2     E       D
+4   Jeff class4     C       A
+5  Karen class3     C       C
+# use readr libary, parse_number() function to extract number out of a string
+> sat
+# A tibble: 6 x 10
+  score_range read_male read_fem read_total math_male math_fem math_total write_male write_fem write_total
+  <chr>           <int>    <int>      <int>     <int>    <int>      <int>      <int>     <int>       <int>
+1 700-800         40151    38898      79049     74461    46040     120501      31574     39101       70675
+2 600-690        121950   126084     248034    162564   133954     296518     100963    125368      226331
+3 500-590        227141   259553     486694    233141   257678     490819     202326    247239      449565
+4 400-490        242554   296793     539347    204670   288696     493366     262623    302933      565556
+5 300-390        113568   133473     247041     82468   131025     213493     146106    144381      290487
+6 200-290         30728    29154      59882     18788    26562      45350      32500     24933       57433
+sat %>%
+  select(-contains("total")) %>%
+  gather(key = part_sex, value = count, -score_range) %>%
+  separate(col=part_sex,into=c("part","sex")) %>%
+  print
+# A tibble: 36 x 4
+   score_range part  sex    count
+   <chr>       <chr> <chr>  <int>
+ 1 700-800     read  male   40151
+ 2 600-690     read  male  121950
+ 3 500-590     read  male  227141
+ 4 400-490     read  male  242554
+ 5 300-390     read  male  113568
+ 6 200-290     read  male   30728
+
+sat %>%
+  select(-contains("total")) %>%
+  gather(part_sex, count, -score_range) %>%
+  separate(part_sex, c("part", "sex")) %>%
+  group_by(part,sex) %>%
+  mutate(total = sum(count),
+         prop = count / total
+  ) %>% print
+
+
+# A tibble: 36 x 6
+# Groups:   part, sex [6]
+   score_range part  sex    count  total   prop
+   <chr>       <chr> <chr>  <int>  <int>  <dbl>
+ 1 700-800     read  male   40151 776092 0.0517
+ 2 600-690     read  male  121950 776092 0.157 
+ 3 500-590     read  male  227141 776092 0.293 
+ 4 400-490     read  male  242554 776092 0.313 
+ 5 300-390     read  male  113568 776092 0.146 
+ 6 200-290     read  male   30728 776092 0.0396
+ 7 700-800     read  fem    38898 883955 0.0440
+ 8 600-690     read  fem   126084 883955 0.143 
+ 9 500-590     read  fem   259553 883955 0.294 
+10 400-490     read  fem   296793 883955 0.336 
 
 #WEEK 3 Quiz
 
