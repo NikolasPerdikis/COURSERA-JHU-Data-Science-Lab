@@ -1,3 +1,36 @@
+students2
+  grade male_1 female_1 male_2 female_2
+1     A      3        4      3        4
+2     B      6        4      3        5
+3     C      7        4      3        8
+4     D      4        0      8        1
+5     E      1        1      2        7
+res <- gather(students2,sex_class,count,-grade)
+> res
+   grade sex_class count
+1      A    male_1     3
+2      B    male_1     6
+3      C    male_1     7
+4      D    male_1     4
+5      E    male_1     1
+6      A  female_1     4
+7      B  female_1     4
+8      C  female_1     4
+...
+
+separate(data=res, col=sex_class,into = c("sex","class"))
+   grade    sex class count
+1      A   male     1     3
+2      B   male     1     6
+3      C   male     1     7
+4      D   male     1     4
+5      E   male     1     1
+6      A female     1     4
+7      B female     1     4
+8      C female     1     4
+...
+
+
 # arrange() the result by size_mb, in descending order.
 # If you want your results printed to the console, add
 # print to the end of your chain.
