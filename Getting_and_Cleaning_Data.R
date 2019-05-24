@@ -1,3 +1,11 @@
+#WEEK 2
+# HOW TO READ XML
+fileURLXML <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Frestaurants.xml"
+download.file(fileURLXML,"ih8.xml")
+res <- xmlParse("ih8.xml")
+length(xpathApply(res, "//zipcode[text()='21231']", xmlValue))
+#END WEEK2
+
 students2
   grade male_1 female_1 male_2 female_2
 1     A      3        4      3        4
