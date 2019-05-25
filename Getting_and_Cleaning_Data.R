@@ -1,3 +1,11 @@
+#rename a dataframe column  
+
+names(w4q2df[4]) 
+[1] "X.2"
+> class(w4q2df)
+[1] "data.frame"
+> names(w4q2df)[names(w4q2df)=="X.2"] <- "countryNames"
+
 #WEEK 2
 # HOW TO READ XML
 fileURLXML <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Frestaurants.xml"
