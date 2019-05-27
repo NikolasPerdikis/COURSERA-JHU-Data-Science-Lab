@@ -1,4 +1,6 @@
-# JOHNS HOPKINS UNIVERSITY DATA SCIENCE SPECIALIZATION repositories by course 
+# JOHNS HOPKINS UNIVERSITY 
+### Data Science Specialization https://www.coursera.org/specializations/jhu-data-science
+### Specialization Courses and their Respective Repository 
 
 Course 1: Data Scientist toolbox
 (current repository)
