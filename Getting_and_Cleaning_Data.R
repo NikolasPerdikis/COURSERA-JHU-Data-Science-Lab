@@ -1,5 +1,14 @@
-#rename a dataframe column  
+# Example of reading fixed width files
 
+> df <- read.fwf(
++     file=url("https://d396qusza40orc.cloudfront.net/getdata%2Fwksst8110.for"),
++     widths=c(-1, 9, -5, 4, 4, -5, 4, 4, -5, 4, 4, -5, 4, 4),
++     skip=4
++ )
+> sum(df[4])
+[1] 32426.7
+
+#rename a dataframe column  
 names(w4q2df[4]) 
 [1] "X.2"
 > class(w4q2df)
@@ -72,19 +81,28 @@ myapp <- oauth_app("NotNikolas63500",
 # 3. Get OAuth credentials
 github_token <- oauth2.0_token(oauth_endpoints("github"), myapp)
 
-# 4. Use API
+# GITHUB API
 gtoken <- config(token = github_token)
 req <- with_config(gtoken, GET("https://api.github.com/users/jtleek/repos"))
 stop_for_status(req)
 res <- content(req)
+ 
  lapply(res,function(ch) grep("datasharing",ch))
  res[[16]]$url
 [1] "https://api.github.com/repos/jtleek/datasharing"
 > res[[16]]$created_at
 [1] "2013-11-07T13:25:07Z"
-> 
+
+# TWITTTER API
+myapp = oauth_app("twitter",
+                   key="56kJmOPAQ0XyELShaPixq4oe1",secret="4VNFHJVK9kxODSHhsR8Wh5sLUVGZtOzIjeiVsET4bMviRQJVl3")
+sig = sign_oauth1.0(myapp,
+                     token = "1129684236733227008-xQ277iJSrY0KdDrgH65qAICcr81EVn",
+                      token_secret = "AK6Yfe4GmTQz9HUe6Qb0b1wD4J325ccVhOt52DMO6dLYR")
+homeTL = GET("https://api.twitter.com/1.1/statuses/home_timeline.json", sig)
+        > 
  
-#END WEEK2
+
 
 students2
   grade male_1 female_1 male_2 female_2
