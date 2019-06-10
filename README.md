@@ -1,5 +1,7 @@
-### Johns Hopkins University Data Science Specialization https://www.coursera.org/specializations/jhu-data-science
-### Specialization Courses and their Respective Repository 
+### Johns Hopkins University Data Science Specialization 
+https://www.coursera.org/specializations/jhu-data-science
+
+### Specialization Courses and their Respective Repositories
 
 Course name | Repository 
 ------------| ----------
