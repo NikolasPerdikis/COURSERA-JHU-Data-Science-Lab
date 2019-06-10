@@ -4,7 +4,7 @@
 
 Course name | Repository 
 ------------| ----------
-Course 1: Data Scientist toolbox | (current repository)
-Course 2: R Programming  | https://github.com/NotNikolas63500/ProgrammingAssignment2
-Course 3: Getting And Cleaning Data | https://github.com/NotNikolas63500/Getting_And_Cleaning_Data
+Course 1: Data Scientist toolbox | https://github.com/NotNikolas63500/COURSERA-JHU-Data-Science/blob/master/%5B1%5D_Data_Scientist_Toolbox.md
+Course 2: R Programming  | https://github.com/NotNikolas63500/COURSERA-JHU-Data-Science/blob/master/%5B2%5D_R_Programming.md
+Course 3: Getting And Cleaning Data | https://github.com/NotNikolas63500/COURSERA-JHU-Data-Science/blob/master/%5B3%5D_Getting_And_Cleaning_Data.md
 Course 4: Exploratory Data Analysis | https://github.com/NotNikolas63500/ExData_Plotting1
