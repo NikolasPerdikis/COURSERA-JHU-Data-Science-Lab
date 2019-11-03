@@ -26,7 +26,7 @@ makeCacheMatrix: This function creates a special "matrix" object that can cache 
 cacheSolve: This function computes the inverse of the special "matrix" returned by makeCacheMatrix above. 
 If the inverse has already been calculated (and the matrix has not changed), then the cachesolve should retrieve the inverse from the cache.
 
-https://github.com/NNikolasPerdikis/COURSERA-JHU-Data-Science-Lab/blob/master/2_R_Programming/cachematrix.R
+https://github.com/NikolasPerdikis/COURSERA-JHU-Data-Science-Lab/blob/master/2_R_Programming/cachematrix.R
 
 Week 4 <- Programming Assignment 3 (Hospital Quality)
 
