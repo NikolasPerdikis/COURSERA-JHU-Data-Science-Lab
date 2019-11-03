@@ -1,0 +1,179 @@
+---
+title: The Effect of Vitamin C on Tooth Growth in Guinea Pigs - interpretation of
+  R dataset ToothGrowth
+author: "Nikolaos Perdikis"
+date: "18 7 2019"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Summary  
+The response is the length of odontoblasts (cells responsible for tooth growth) in 60 guinea pigs. Each animal received one of three dose levels of vitamin C (0.5, 1, and 2 mg/day) by one of two delivery methods, orange juice or ascorbic acid (a form of vitamin C and coded as VC). 
+
+Usage
+
+ToothGrowth
+
+Format
+
+A data frame with 60 observations on 3 variables.  
+[,1] 	len 	numeric 	Tooth length  
+[,2] 	supp 	factor 	Supplement type (VC or OJ).  
+[,3] 	dose 	numeric 	Dose in milligrams/day   
+
+
+
+
+## Load the ToothGrowth data and perform some basic exploratory data analyses  
+```{r loadData}
+library(datasets)
+library(ggplot2)
+library(dplyr)
+data(ToothGrowth)
+df_TD <- ToothGrowth
+#Display the summary of the dataframe
+summary(df_TD)
+```
+```{r}
+#Display the unique values of dose
+unique(df_TD$dose)
+``` 
+
+## Provide a basic summary of the data  
+
+```{r summary}
+df_TD$dose <- as.factor(df_TD$dose)
+table(df_TD$supp,df_TD$dose)
+```
+## Basic stats, so mean:
+```{r}
+
+mean(df_TD$len)
+
+```
+and standard deviation:
+```{r} 
+sd(df_TD$len)
+```
+
+What does the table above tell us? We confirm the description of the dataset, as our dataframe contains a total of 60 observations, of 3 different dosage levels and two different supplement types. Let's see how this all looks in a graph:
+
+```{r}
+plot <- ggplot(df_TD, 
+               aes(x=dose,y=len,fill=dose))
+plot + geom_boxplot(notch=FALSE) + facet_grid(.~supp) +
+     scale_x_discrete("Dosage [mg/day]") +   
+     scale_y_continuous("Teeth Growth") +  
+     ggtitle("Effect of Dosage and Supplement Type") +
+     scale_fill_brewer(palette="Blues")
+
+```
+While some elements and relationships are clearly visible in the graphic, let's create some filters and summaries:   
+Get the mean length of toothgrowth, as a function of dose quantity and type of supplementation:
+```{r}
+TG_1 <- df_TD %>% 
+    group_by(supp,dose) %>%
+    summarize(mean=mean(len), stdev=sd(len), count = n())
+print(TG_1)
+
+```
+What about the mean tooth length only as a factor of the supplement?
+```{r}
+TG_2 <- df_TD %>% 
+    group_by(supp) %>%
+    summarize(mean=mean(len), stdev=sd(len), count = n())
+print(TG_2)
+
+```
+... or the dose?
+```{r}
+TG_3 <- df_TD %>% 
+    group_by(dose) %>%
+    summarize(mean=mean(len), stdev=sd(len), count = n())
+print(TG_3)
+
+```
+
+## Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose  
+
+For all tests below, we will assume a 95% confidence interval.
+
+First, let's perform a Student's T-Test comparing the tooth length with the supplement:
+
+```{r}
+t.test(len ~ supp, paired=FALSE, var.equal=FALSE, data=ToothGrowth)
+```
+What does this tell us?  
+In plain terms: The type of supplementation did not matter for the tooth length increase, just the dose  
+...or in statistical phrasing: While comparing a NULL hypothesis (difference of means = 0 ) against an alternative hypothesis, ** we fail to reject the NULL hypothesis**, since the NULL hypothesis value (delta means = 0) is within the confidence interval of 95% confidence
+
+It would be useful however, to drill into the data, and see how different levels of dosage, in different supplementation type, might affect tooth growth. For this, let's create the relevant data structures:
+
+```{r}
+#Reload the data to use comparison signs for dosage:
+df_TD <- ToothGrowth
+#simple subsetting of the dose level to create new datasets
+mindose <- df_TD[df_TD$dose==0.5, ]
+meddose <- df_TD[df_TD$dose==1, ]
+maxdose <- df_TD[df_TD$dose==2,]
+#High dose ( 2mg/day) and low dose (0.5-1 mg/day) with supplement type OJ: Orange Juice
+OJlmdose <- filter(ToothGrowth,dose %in% c(0.5,1),supp=="OJ")
+OJmhdose <- filter(ToothGrowth,dose %in% c(1,2),supp=="OJ")
+#High dose ( 2mg/day) and low dose (0.5-1 mg/day) with supplement type VC: Ascorbic Acid
+VClmdose <- filter(ToothGrowth,dose <2,supp=="VC")
+VCmhdose <- filter(ToothGrowth,dose > 0.5 ,supp=="VC")
+```
+
+Let's compare, at the **0.5 - 1  mg/day dosage levels** what happens between Orange Juice and Ascorbic Acid
+```{r}
+t.test(len ~ supp, paired=FALSE, var.equal=FALSE, data=mindose)
+t.test(len ~ supp, paired=FALSE, var.equal=FALSE, data=meddose)
+```
+Conclusion: We **reject the NULL hypothesis** or in simple terms, different supplementation method for 0.5 - 1 mg/day **does yield different results** in tooth growth.
+
+Let's compare, at the **2  mg/day dosage levels** what happens between Orange Juice and Ascorbic Acid
+```{r}
+t.test(len ~ supp, paired=FALSE, var.equal=FALSE, data=maxdose)
+```
+Conclusion: We **fail reject the NULL hypothesis** or in simple terms, it makes no difference if our guinea pigs receive the Vitamin C in Orange Juice or otherwise.
+
+Since we are on it, let's also apply Student's T-Test in the rest of our datasets. So we will investigate if:
+We can seperate between **0.5 and 1 mg/day**, for supplmentation type to be **Orange Juice**:
+```{r}
+t.test(len ~ dose, paired=FALSE, var.equal=FALSE, data=OJlmdose)
+```
+This test shows us that there is a significant difference between the two dosages of 0.5 and 1 mg/day, when supplied with Orange Juice (OJ)
+
+We can seperate between **1 and 2 mg/day**, for supplmentation type to be **Orange Juice**:
+```{r}
+t.test(len ~ dose, paired=FALSE, var.equal=FALSE, data=OJmhdose)
+```
+This test shows us that there is a significant difference.
+
+We can seperate between **0.5 and 1 mg/day**, for supplmentation type to be **Ascorbic Acid**:
+```{r}
+t.test(len ~ dose, paired=FALSE, var.equal=FALSE, data=VClmdose)
+```
+This test shows us that there is a significant difference.
+
+We can seperate between **1 and 2 mg/day**, for supplmentation type to be **Ascorbic Acid**:
+
+```{r}
+t.test(len ~ dose, paired=FALSE, var.equal=FALSE, data=VCmhdose)
+```
+This test shows us that there is a significant difference.
+
+## State your conclusions and the assumptions needed for your conclusions
+Conclusions:  
+-The amount of tooth length increase is directly analogous to the vitamin intake, regardless of type of inestion  
+-Given a cumulative groupping, the two vitamin injestion types yield similar results, with a 95% confidence interval  
+-Given regard to the amount of the dose, the type of injestion of the vitamin matters for low to mid dose, but does not for the max dose of 2mg / day
+  
+The following assumptions were made:  
+-The measurements are not paired  
+-We do not assume the variances to be equal  
+-We assume that our popolation samples are IID  
