@@ -4,7 +4,7 @@ Part 1
 
 Write a function named 'pollutantmean' that calculates the mean of a pollutant (sulfate or nitrate) across a specified list of monitors. The function 'pollutantmean' takes three arguments: 'directory', 'pollutant', and 'id'. Given a vector monitor ID numbers, 'pollutantmean' reads that monitors' particulate matter data from the directory specified in the 'directory' argument and returns the mean of the pollutant across all of the monitors, ignoring any missing values coded as NA. A prototype of the function is as follows
 
-Link to file: https://github.com/NikolasPerdikis/COURSERA-JHU-Data-Science-Lab/blob/master/pollutantmean.R
+Link to file: https://github.com/NikolasPerdikis/COURSERA-JHU-Data-Science-Lab/blob/master/2_R_Programming/blob/master/pollutantmean.R
 
 Part 2
 
@@ -26,19 +26,19 @@ makeCacheMatrix: This function creates a special "matrix" object that can cache 
 cacheSolve: This function computes the inverse of the special "matrix" returned by makeCacheMatrix above. 
 If the inverse has already been calculated (and the matrix has not changed), then the cachesolve should retrieve the inverse from the cache.
 
-https://github.com/NikolasPerdikis/COURSERA-JHU-Data-Science-Lab/blob/master/cachematrix.R
+https://github.com/NNikolasPerdikis/COURSERA-JHU-Data-Science-Lab/blob/master/2_R_Programming/blob/master/cachematrix.R
 
 Week 4 <- Programming Assignment 3 (Hospital Quality)
 
 Finding the best hospital in a state
 Write a function calledbestthat take two arguments:  the 2-character abbreviated name of a state and anoutcome name.  The function reads theoutcome-of-care-measures.csvfile and returns a character vectorwith  the  name  of  the  hospital  that  has  the  best  (i.e.   lowest)  30-day  mortality  for  the  specified  outcomein that state.  The hospital name is the name provided in theHospital.Namevariable.  The outcomes canbe one of “heart attack”, “heart failure”, or “pneumonia”.  Hospitals that do not have data on a particularoutcome should be excluded from the set of hospitals when deciding the rankings.
 
-https://github.com/NikolasPerdikis/COURSERA-JHU-Data-Science-Lab/blob/master/best.R
+https://github.com/NikolasPerdikis/COURSERA-JHU-Data-Science-Lab/blob/master/2_R_Programming/blob/master/best.R
 
 Write a function called rankhospital that takes three arguments:  the 2-character abbreviated name of astate (state), an outcome (outcome), and the ranking of a hospital in that state for that outcome (num).The function reads theoutcome-of-care-measures.csvfile and returns a character vector with the nameof the hospital that has the ranking specified by thenumargument
 
-https://github.com/NikolasPerdikis/COURSERA-JHU-Data-Science-Lab/blob/master/rankhospital.R
+https://github.com/NikolasPerdikis/COURSERA-JHU-Data-Science-Lab/blob/master/2_R_Programming/blob/master/rankhospital.R
 
 Write a function calledrankallthat takes two arguments: an outcome name (outcome) and a hospital rank-ing (num).  The function reads theoutcome-of-care-measures.csvfile and returns a 2-column data framecontaining the hospital in each state that has the ranking specified innum.  
 
-https://github.com/NikolasPerdikis/COURSERA-JHU-Data-Science-Lab/blob/master/rankall.R
+https://github.com/NikolasPerdikis/COURSERA-JHU-Data-Science-Lab/blob/master/2_R_Programming/blob/master/rankall.R
